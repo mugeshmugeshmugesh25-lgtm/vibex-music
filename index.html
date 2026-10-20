@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VibeX | Feel Every Beat</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <h2 class="logo">Vibe<span>X.</span></h2>
+
+        <p class="label">MENU</p>
+
+        <button class="nav-btn active" id="homeNav">⌂ Home</button>
+        <button class="nav-btn" id="discoverNav">♫ Discover</button>
+        <button class="nav-btn" id="libraryNav">▣ Your Library</button>
+
+        <p class="label">YOUR MUSIC</p>
+
+        <button class="nav-btn" id="likedNav">♥ Liked Songs</button>
+
+        <div class="side-bottom">
+            Feel the music.<br>
+            <span>Live the vibe.</span>
+        </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <header>
+
+            <div class="welcome">
+                <p>WELCOME TO VIBEX</p>
+                <h1>Feel the <span>vibe.</span></h1>
+            </div>
+
+            <input id="search" type="search"
+                   placeholder="⌕ Search songs or artists...">
+
+            <div class="avatar">V</div>
+
+        </header>
+
+        <!-- HOME SCREEN -->
+        <div id="homeView" class="page-view">
+
+            <section class="hero">
+
+                <div>
+                    <p class="tag">YOUR DAILY MIX</p>
+
+                    <h2>Music for<br>every <span>mood.</span></h2>
+
+                    <p class="sub">
+                        Discover your next favourite sound.
+                    </p>
+
+                    <button onclick="playFirst()">
+                        ▶ Start Listening
+                    </button>
+                </div>
+
+                <div class="disc">
+                    <div class="disc-center">♫</div>
+                </div>
+
+            </section>
+
+            <section id="library">
+
+                <div class="section-title">
+                    <div>
+                        <p class="label">MADE FOR YOU</p>
+                        <h2>Popular Tracks</h2>
+                    </div>
+
+                    <span class="count">YOUR PLAYLIST</span>
+                </div>
+
+                <div class="songs" id="songs"></div>
+
+            </section>
+
+        </div>
+
+        <!-- LIKED SONGS SCREEN -->
+        <div id="likedView" class="page-view" hidden>
+
+            <section class="liked-hero">
+
+                <div class="liked-icon">♥</div>
+
+                <div>
+                    <p class="tag">YOUR COLLECTION</p>
+                    <h1>Liked Songs</h1>
+                    <p class="sub">Your favourite music, all in one place.</p>
+                </div>
+
+            </section>
+
+            <section class="liked-section">
+
+                <div class="section-title">
+                    <div>
+                        <p class="label">YOUR MUSIC</p>
+                        <h2>Favourite Tracks</h2>
+                    </div>
+
+                    <span class="count" id="likedCount">0 SONGS</span>
+                </div>
+
+                <div class="songs" id="likedSongs"></div>
+
+                <div id="likedEmpty" class="empty-state">
+                    <h3>No liked songs yet ♡</h3>
+                    <p>Like a song to add it to your collection.</p>
+                    <button id="exploreBtn">Explore Music</button>
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- INDIVIDUAL SONG PAGE -->
+        <div id="songView" class="page-view" hidden>
+
+            <button id="backBtn" class="back-btn">
+                ← Back to music
+            </button>
+
+            <section class="song-detail">
+
+                <div class="detail-cover" id="detailCover">
+                    ♫
+                </div>
+
+                <div class="detail-info">
+
+                    <p class="tag">NOW PLAYING</p>
+
+                    <h1 id="detailTitle">Song Name</h1>
+
+                    <p id="detailArtist">Artist Name</p>
+
+                    <div class="detail-actions">
+
+                        <button id="detailPlayBtn" class="detail-play">
+                            ▶ Play
+                        </button>
+
+                        <button id="detailLikeBtn" class="detail-like">
+                            ♡ Like
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- LYRICS -->
+            <section class="lyrics-section">
+
+                <div class="section-title">
+                    <div>
+                        <p class="label">SING ALONG</p>
+                        <h2>Lyrics <span>♫</span></h2>
+                    </div>
+                </div>
+
+                <div id="lyricsContent" class="lyrics-content">
+                    <p class="lyrics-placeholder">
+                        Lyrics will appear here.
+                    </p>
+                </div>
+
+            </section>
+
+        </div>
+
+        <footer>
+            VibeX <span>•</span> Your music, your world.
+        </footer>
+
+    </main>
+
+</div>
+
+<!-- BOTTOM MUSIC PLAYER -->
+<div class="player">
+
+    <div class="now-playing">
+
+        <div class="mini-cover" id="miniCover">♫</div>
+
+        <div class="track-info">
+            <b id="songName">Choose a song</b>
+            <small id="artistName">Your next favourite</small>
+        </div>
+
+        <button id="likeBtn" title="Like song">♡</button>
+
+    </div>
+
+    <div class="controls">
+
+        <div class="buttons">
+
+            <button onclick="previousSong()">⏮</button>
+
+            <button class="play-btn" id="playBtn"
+                    onclick="togglePlay()">▶</button>
+
+            <button onclick="nextSong()">⏭</button>
+
+        </div>
+
+        <div class="progress-row">
+
+            <span id="currentTime">0:00</span>
+
+            <input type="range" id="progress"
+                   value="0" min="0" max="100">
+
+            <span id="duration">0:00</span>
+
+        </div>
+
+    </div>
+
+    <div class="volume">
+        ♫
+        <input id="volume" type="range"
+               min="0" max="1" step="0.01" value="0.7">
+    </div>
+
+</div>
+
+<audio id="audio"></audio>
+
+<script src="script.js"></script>
+
+</body>
+</html>
